@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/francofabio/gen/internal/i18n"
 )
 
 const ibgeEstados = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
@@ -50,7 +52,7 @@ func fetchEstados() ([]IBGEEstado, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("falha ao listar estados: %d", resp.StatusCode)
+		return nil, fmt.Errorf("%s", i18n.T("ibge_list_states_failed", resp.StatusCode))
 	}
 	var list []IBGEEstado
 	if err := json.NewDecoder(resp.Body).Decode(&list); err != nil {
@@ -85,7 +87,7 @@ func ListEstados() ([]string, error) {
 func FetchMunicipios(uf string) ([]string, error) {
 	id, ok := GetEstadoID(uf)
 	if !ok {
-		return nil, fmt.Errorf("UF inválida: %s", uf)
+		return nil, fmt.Errorf("%s", i18n.T("cep_invalid_uf", uf))
 	}
 	url := fmt.Sprintf("https://servicodados.ibge.gov.br/api/v1/localidades/estados/%d/municipios", id)
 	client := &http.Client{Timeout: 10 * time.Second}
@@ -95,7 +97,7 @@ func FetchMunicipios(uf string) ([]string, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("UF inválida: %s", uf)
+		return nil, fmt.Errorf("%s", i18n.T("cep_invalid_uf", uf))
 	}
 	var list []IBGEMunicipio
 	if err := json.NewDecoder(resp.Body).Decode(&list); err != nil {
@@ -124,7 +126,7 @@ func RandomMunicipio(uf string) (string, error) {
 		return "", err
 	}
 	if len(names) == 0 {
-		return "", fmt.Errorf("nenhum município para UF: %s", uf)
+		return "", fmt.Errorf("%s", i18n.T("ibge_no_municipality", uf))
 	}
 	return names[rand.Intn(len(names))], nil
 }

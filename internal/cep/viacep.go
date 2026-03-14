@@ -7,6 +7,8 @@ import (
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/francofabio/gen/internal/i18n"
 )
 
 const viaCEPBase = "https://viacep.com.br/ws"
@@ -29,10 +31,10 @@ func SearchByAddress(uf, city, logradouro string) ([]ViaCEPItem, error) {
 	city = strings.TrimSpace(city)
 	logradouro = strings.TrimSpace(logradouro)
 	if len(uf) != 2 {
-		return nil, fmt.Errorf("UF inválida: %s", uf)
+		return nil, fmt.Errorf("%s", i18n.T("cep_invalid_uf", uf))
 	}
 	if len(city) < 3 {
-		return nil, fmt.Errorf("cidade deve ter ao menos 3 caracteres")
+		return nil, fmt.Errorf("%s", i18n.T("cep_city_min_chars"))
 	}
 	if len(logradouro) < 3 {
 		logradouro = "Rua"
@@ -52,7 +54,7 @@ func SearchByAddress(uf, city, logradouro string) ([]ViaCEPItem, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("UF inválida: %s", uf)
+		return nil, fmt.Errorf("%s", i18n.T("cep_invalid_uf", uf))
 	}
 	var items []ViaCEPItem
 	if err := json.NewDecoder(resp.Body).Decode(&items); err != nil {

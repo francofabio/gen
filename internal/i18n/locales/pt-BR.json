@@ -1,0 +1,15 @@
+{
+  "usage_short": "uso: gen <recurso> [argumentos] [flags]",
+  "help_full": "gen — geração rápida de dados de teste\n\nUso:\n  gen <recurso> [argumentos] [flags]\n\nRecursos:\n  cpf         Gera um CPF válido\n  cnpj        Gera um CNPJ válido\n  cep         Retorna um CEP real (opcional: UF, cidade)\n  card        Gera número de cartão válido (bandeira [BIN])\n  version     Exibe a versão\n  help        Exibe esta ajuda\n\nExemplos:\n  gen cpf\n  gen cpf -f\n  gen cnpj --format\n  gen cep\n  gen cep es\n  gen cep es vitoria\n  gen card visa\n  gen card master\n  gen card visa 405168\n\nFlags globais:\n  -h, --help        ajuda\n  -v, --version     versão\n  -c, --clipboard   copia o resultado também para o clipboard",
+  "help_cep": "gen cep — retorna um CEP real\n\nUso:\n  gen cep [uf] [cidade]\n\nExemplos:\n  gen cep\n  gen cep es\n  gen cep es vitoria\n  gen cep sp campinas",
+  "help_card": "gen card — gera número de cartão válido para testes\n\nUso:\n  gen card <bandeira> [bin]\n\nBandeiras: visa, master, amex, elo, hipercard\n\nExemplos:\n  gen card visa\n  gen card master\n  gen card visa 405168\n  gen card elo 636297",
+  "card_usage": "uso: gen card <bandeira> [bin]",
+  "card_invalid_brand": "bandeira inválida: %s",
+  "config_error": "config: %s",
+  "clipboard_failed": "aviso: não foi possível copiar para o clipboard",
+  "cep_invalid_uf": "UF inválida: %s",
+  "cep_no_results": "nenhum CEP encontrado para uf=%s cidade=%s",
+  "cep_city_min_chars": "cidade deve ter ao menos 3 caracteres",
+  "ibge_list_states_failed": "falha ao listar estados: %d",
+  "ibge_no_municipality": "nenhum município para UF: %s"
+}

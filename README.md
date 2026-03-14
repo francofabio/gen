@@ -114,6 +114,18 @@ gen card --help
 gen cep --help
 ```
 
+### Language
+
+Help and error messages follow the `LANG` (or `LANGUAGE`) environment variable. Default is English.
+
+```bash
+gen help                    # English (default)
+LANG=pt_BR gen help         # Portuguese (Brazil)
+LANG=pt_BR.UTF-8 gen cpf    # Portuguese
+```
+
+Supported locales: `en`, `pt-BR` (or `pt_BR`).
+
 ## Configuration (optional)
 
 Config file: `~/.gen/config.json` (on Windows: `%USERPROFILE%\.gen\config.json`).

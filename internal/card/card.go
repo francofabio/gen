@@ -3,6 +3,8 @@ package card
 import (
 	"math/rand"
 	"strings"
+
+	"github.com/francofabio/gen/internal/i18n"
 )
 
 // LuhnCheckDigit returns the check digit (0-9) for the given digits string (only digits).
@@ -82,5 +84,5 @@ type ErrInvalidBrand struct {
 }
 
 func (e ErrInvalidBrand) Error() string {
-	return "bandeira inválida: " + e.Brand
+	return i18n.T("card_invalid_brand", e.Brand)
 }

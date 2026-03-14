@@ -11,6 +11,7 @@ import (
 	"github.com/francofabio/gen/internal/config"
 	"github.com/francofabio/gen/internal/cnpj"
 	"github.com/francofabio/gen/internal/cpf"
+	"github.com/francofabio/gen/internal/i18n"
 	"github.com/francofabio/gen/internal/output"
 )
 
@@ -40,7 +41,7 @@ func Run(args []string) int {
 		return runHelp(rest)
 	}
 	if isHelpFlag(cmd) {
-		output.Err(os.Stderr, helpFull)
+		output.Err(os.Stderr, i18n.T("help_full"))
 		return 0
 	}
 	if isVersionFlag(cmd) {
@@ -101,7 +102,7 @@ func parseFormatFlag(args []string) bool {
 }
 
 func printUsage(w io.Writer) {
-	output.Err(w, usageShort)
+	output.Err(w, i18n.T("usage_short"))
 }
 
 // OutWriter returns stdout for result output.
@@ -122,7 +123,7 @@ var Version = "dev"
 
 func runCEP(args []string, copyToClipboard bool) int {
 	if len(args) >= 1 && (args[0] == "--help" || args[0] == "-h") {
-		output.Err(os.Stdout, helpCEP)
+		output.Err(os.Stdout, i18n.T("help_cep"))
 		return 0
 	}
 	var uf, city string
@@ -146,16 +147,16 @@ func runCEP(args []string, copyToClipboard bool) int {
 
 func runCard(args []string, copyToClipboard bool) int {
 	if len(args) >= 1 && (args[0] == "--help" || args[0] == "-h") {
-		output.Err(os.Stdout, helpCard)
+		output.Err(os.Stdout, i18n.T("help_card"))
 		return 0
 	}
 	if len(args) < 1 {
-		output.Err(os.Stderr, "uso: gen card <bandeira> [bin]")
+		output.Err(os.Stderr, i18n.T("card_usage"))
 		return 1
 	}
 	brand := strings.ToLower(args[0])
 	if !card.ValidBrands[brand] {
-		output.Err(os.Stderr, "bandeira inválida: "+brand)
+		output.Err(os.Stderr, i18n.T("card_invalid_brand", brand))
 		return 1
 	}
 	var explicitBIN string
@@ -164,7 +165,7 @@ func runCard(args []string, copyToClipboard bool) int {
 	}
 	cfg, err := config.Load()
 	if err != nil {
-		output.Err(os.Stderr, "config: "+err.Error())
+		output.Err(os.Stderr, i18n.T("config_error", err.Error()))
 		return 1
 	}
 	configBINs := cfg.Cards[brand]
@@ -182,7 +183,7 @@ func runCard(args []string, copyToClipboard bool) int {
 
 func tryCopyToClipboard(text string) {
 	if err := clipboard.Write(text); err != nil {
-		output.Err(os.Stderr, "aviso: não foi possível copiar para o clipboard")
+		output.Err(os.Stderr, i18n.T("clipboard_failed"))
 	}
 }
 
@@ -193,6 +194,6 @@ func runVersion(args []string) int {
 
 func runHelp(args []string) int {
 	// Help goes to stdout so it can be piped (e.g. gen help | less).
-	output.PrintValue(os.Stdout, strings.TrimSuffix(helpFull, "\n"))
+	output.PrintValue(os.Stdout, strings.TrimSuffix(i18n.T("help_full"), "\n"))
 	return 0
 }

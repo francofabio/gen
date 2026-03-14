@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math/rand"
 	"strings"
+
+	"github.com/francofabio/gen/internal/i18n"
 )
 
 // FetchRandom returns a random real CEP.
@@ -21,10 +23,10 @@ func FetchRandom(uf, city string) (string, error) {
 		}
 	} else {
 		if len(uf) != 2 {
-			return "", fmt.Errorf("UF inválida: %s", uf)
+			return "", fmt.Errorf("%s", i18n.T("cep_invalid_uf", uf))
 		}
 		if _, ok := GetEstadoID(uf); !ok {
-			return "", fmt.Errorf("UF inválida: %s", uf)
+			return "", fmt.Errorf("%s", i18n.T("cep_invalid_uf", uf))
 		}
 	}
 
@@ -41,7 +43,7 @@ func FetchRandom(uf, city string) (string, error) {
 		return "", err
 	}
 	if len(items) == 0 {
-		return "", fmt.Errorf("nenhum CEP encontrado para uf=%s cidade=%s", uf, city)
+		return "", fmt.Errorf("%s", i18n.T("cep_no_results", uf, city))
 	}
 	item := items[rand.Intn(len(items))]
 	return NormalizeCEP(item.CEP), nil

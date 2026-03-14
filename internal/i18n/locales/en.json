@@ -1,0 +1,15 @@
+{
+  "usage_short": "usage: gen <resource> [arguments] [flags]",
+  "help_full": "gen — quick Brazilian test data generation\n\nUsage:\n  gen <resource> [arguments] [flags]\n\nResources:\n  cpf         Generate a valid CPF\n  cnpj        Generate a valid CNPJ\n  cep         Return a real postal code (optional: state, city)\n  card        Generate valid card number (brand [BIN])\n  version     Show version\n  help        Show this help\n\nExamples:\n  gen cpf\n  gen cpf -f\n  gen cnpj --format\n  gen cep\n  gen cep es\n  gen cep es vitoria\n  gen card visa\n  gen card master\n  gen card visa 405168\n\nGlobal flags:\n  -h, --help        help\n  -v, --version     version\n  -c, --clipboard   also copy result to clipboard",
+  "help_cep": "gen cep — return a real postal code\n\nUsage:\n  gen cep [state] [city]\n\nExamples:\n  gen cep\n  gen cep es\n  gen cep es vitoria\n  gen cep sp campinas",
+  "help_card": "gen card — generate valid card number for testing\n\nUsage:\n  gen card <brand> [bin]\n\nBrands: visa, master, amex, elo, hipercard\n\nExamples:\n  gen card visa\n  gen card master\n  gen card visa 405168\n  gen card elo 636297",
+  "card_usage": "usage: gen card <brand> [bin]",
+  "card_invalid_brand": "invalid brand: %s",
+  "config_error": "config: %s",
+  "clipboard_failed": "warning: could not copy to clipboard",
+  "cep_invalid_uf": "invalid state code: %s",
+  "cep_no_results": "no postal code found for state=%s city=%s",
+  "cep_city_min_chars": "city must be at least 3 characters",
+  "ibge_list_states_failed": "failed to list states: %d",
+  "ibge_no_municipality": "no municipality for state: %s"
+}
