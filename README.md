@@ -1,15 +1,15 @@
 # gen
 
-Utilitário de linha de comando para geração rápida de dados de teste comuns no desenvolvimento de sistemas no Brasil. Um binário único, sem dependência de runtime no host.
+Command-line utility for quickly generating common Brazilian test data. Single binary, no runtime dependency on the host.
 
-## Recursos
+## Features
 
-- **CPF** — Gera CPF válido (com ou sem máscara)
-- **CNPJ** — Gera CNPJ válido (com ou sem máscara)
-- **CEP** — Retorna um CEP real (qualquer, por UF ou por cidade)
-- **Cartão** — Gera número de cartão válido (Luhn) para bandeiras visa, master, amex, elo, hipercard
+- **CPF** — Generate valid CPF (with or without mask)
+- **CNPJ** — Generate valid CNPJ (with or without mask)
+- **CEP** — Return a real postal code (any, by state, or by city)
+- **Card** — Generate Luhn-valid card numbers for visa, master, amex, elo, hipercard
 
-## Instalação
+## Installation
 
 ### macOS / Linux
 
@@ -17,9 +17,9 @@ Utilitário de linha de comando para geração rápida de dados de teste comuns 
 curl -fsSL https://raw.githubusercontent.com/franco/gen/main/scripts/install.sh | sh
 ```
 
-O script detecta OS e arquitetura, baixa o binário do [GitHub Releases](https://github.com/franco/gen/releases) e instala em `~/.local/bin` ou `~/bin`. Não usa `sudo`.
+The script detects OS and architecture, downloads the binary from [GitHub Releases](https://github.com/franco/gen/releases), and installs to `~/.local/bin` or `~/bin`. No `sudo` required.
 
-Se o diretório não estiver no `PATH`, adicione no seu shell:
+If that directory is not in your `PATH`, add it to your shell:
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
@@ -31,11 +31,11 @@ export PATH="$HOME/.local/bin:$PATH"
 irm https://raw.githubusercontent.com/franco/gen/main/scripts/install.ps1 | iex
 ```
 
-Instala em `%USERPROFILE%\bin`. Verifique se esse diretório está no `PATH`.
+Installs to `%USERPROFILE%\bin`. Ensure that directory is in your `PATH`.
 
-### Build a partir do código
+### Build from source
 
-Requisito: [Go 1.21+](https://go.dev/dl/).
+Requires [Go 1.21+](https://go.dev/dl/).
 
 ```bash
 git clone https://github.com/franco/gen.git
@@ -43,29 +43,29 @@ cd gen
 go build -o gen ./cmd/gen
 ```
 
-Para gerar binários para todas as plataformas:
+To build binaries for all platforms:
 
 ```bash
-./scripts/build.sh          # versão "dev"
-./scripts/build.sh v1.0.0  # versão específica
+./scripts/build.sh          # version "dev"
+./scripts/build.sh v1.0.0  # specific version
 ```
 
-Artefatos em `dist/`: `gen_darwin_arm64.tar.gz`, `gen_linux_amd64.tar.gz`, `gen_windows_amd64.zip`, etc.
+Artifacts go to `dist/`: `gen_darwin_arm64.tar.gz`, `gen_linux_amd64.tar.gz`, `gen_windows_amd64.zip`, etc.
 
-## Uso
+## Usage
 
-Forma geral:
+General form:
 
 ```bash
-gen <recurso> [argumentos] [flags]
+gen <resource> [arguments] [flags]
 ```
 
-A saída é apenas o valor gerado (uma linha), pronta para pipe.
+Output is a single line (the generated value), pipe-friendly.
 
-### Exemplos
+### Examples
 
 ```bash
-# CPF (sem máscara ou com -f/--format)
+# CPF (plain or with -f/--format)
 gen cpf
 gen cpf -f
 
@@ -73,28 +73,28 @@ gen cpf -f
 gen cnpj
 gen cnpj --format
 
-# CEP (qualquer, por UF ou por cidade)
+# CEP (any, by state/UF, or by city)
 gen cep
 gen cep es
 gen cep es vitoria
 gen cep sp campinas
 
-# Cartão (bandeira e opcionalmente BIN)
+# Card (brand and optional BIN)
 gen card visa
 gen card master
 gen card visa 405168
 gen card elo 636297
 ```
 
-### Flags globais
+### Global flags
 
-| Flag | Descrição |
-|------|-----------|
-| `-h`, `--help` | Exibe a ajuda |
-| `-v`, `--version` | Exibe a versão |
-| `-c`, `--clipboard` | Copia o resultado também para o clipboard |
+| Flag | Description |
+|------|-------------|
+| `-h`, `--help` | Show help |
+| `-v`, `--version` | Show version |
+| `-c`, `--clipboard` | Also copy the result to the clipboard |
 
-Exemplos com clipboard:
+Examples with clipboard:
 
 ```bash
 gen cpf -c
@@ -103,9 +103,9 @@ gen cep es vitoria -c
 gen card visa -c
 ```
 
-No Linux, a flag `-c` usa `wl-copy`, `xclip` ou `xsel` (um deles precisa estar instalado). No macOS usa `pbcopy`; no Windows usa `clip`.
+On Linux, the `-c` flag uses `wl-copy`, `xclip`, or `xsel` (one of them must be installed). On macOS it uses `pbcopy`; on Windows, `clip`.
 
-### Ajuda
+### Help
 
 ```bash
 gen help
@@ -114,13 +114,13 @@ gen card --help
 gen cep --help
 ```
 
-## Configuração (opcional)
+## Configuration (optional)
 
-Arquivo: `~/.gen/config.json` (no Windows: `%USERPROFILE%\.gen\config.json`).
+Config file: `~/.gen/config.json` (on Windows: `%USERPROFILE%\.gen\config.json`).
 
-Use para definir BINs preferidos para o comando `card`. Se não informar BIN na linha de comando, o gen usa os valores da config; caso contrário, os padrões da bandeira.
+Use it to define preferred BINs for the `card` command. If you don’t pass a BIN on the command line, gen uses values from config; otherwise it uses the brand defaults.
 
-Exemplo:
+Example:
 
 ```json
 {
@@ -132,24 +132,24 @@ Exemplo:
 }
 ```
 
-BIN pode ser um valor fixo ou um intervalo (`"222100-222199"`). O arquivo é opcional; se não existir ou estiver inválido, a mensagem de erro será clara.
+BIN can be a fixed value or a range (`"222100-222199"`). The file is optional; if it’s missing or invalid, you’ll get a clear error message.
 
-## Requisitos
+## Requirements
 
-- **CPF, CNPJ, cartão**: nenhum (totalmente offline).
-- **CEP**: acesso à internet (ViaCEP e IBGE).
-- **Clipboard (`-c`) no Linux**: `wl-copy` (Wayland), `xclip` ou `xsel` instalado.
+- **CPF, CNPJ, card**: none (fully offline).
+- **CEP**: internet access (ViaCEP and IBGE).
+- **Clipboard (`-c`) on Linux**: `wl-copy` (Wayland), `xclip`, or `xsel` installed.
 
-## Plataformas
+## Platforms
 
-Binários para:
+Binaries for:
 
 - macOS (arm64, amd64)
 - Linux (amd64, arm64)
 - Windows (amd64)
 
-Build com Go puro (`CGO_ENABLED=0`), sem runtime externo.
+Built with pure Go (`CGO_ENABLED=0`), no external runtime.
 
-## Licença
+## License
 
-MIT. Ver [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
