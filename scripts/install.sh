@@ -5,7 +5,7 @@ set -e
 # Usage: curl -fsSL https://raw.githubusercontent.com/<user>/gen/main/scripts/install.sh | sh
 
 BINARY_NAME="gen"
-REPO_URL="${GEN_REPO_URL:-https://github.com/franco/gen}"
+REPO_URL="${GEN_REPO_URL:-https://github.com/francofabio/gen}"
 BASE_URL="${REPO_URL}/releases/latest/download"
 
 detect_arch() {
@@ -38,7 +38,7 @@ main() {
 	local target
 	target="$(detect_arch "$os" "$arch")"
 	if [[ "$target" == "unsupported" ]]; then
-		echo "gen: plataforma não suportada: $os/$arch" >&2
+		echo "gen: unsupported platform: $os/$arch" >&2
 		exit 1
 	fi
 
@@ -48,9 +48,9 @@ main() {
 	tmpdir="$(mktemp -d)"
 	trap 'rm -rf "$tmpdir"' EXIT
 
-	echo "Baixando $url ..." >&2
+	echo "Downloading $url ..." >&2
 	if ! curl -fsSL "$url" -o "$tmpdir/$archive_name"; then
-		echo "gen: falha ao baixar. Verifique a URL ou a conexão." >&2
+		echo "gen: download failed. Check the URL or your connection." >&2
 		exit 1
 	fi
 	tar -xzf "$tmpdir/$archive_name" -C "$tmpdir"
@@ -66,17 +66,17 @@ main() {
 			mkdir -p "$bindir"
 		fi
 	else
-		echo "gen: variável HOME não definida" >&2
+		echo "gen: HOME environment variable is not set" >&2
 		exit 1
 	fi
 
 	cp "$tmpdir/$BINARY_NAME" "$bindir/$BINARY_NAME"
 	chmod +x "$bindir/$BINARY_NAME"
-	echo "Instalado em $bindir/$BINARY_NAME" >&2
+	echo "Installed at $bindir/$BINARY_NAME" >&2
 
 	if ! echo ":$PATH:" | grep -q ":$bindir:"; then
 		echo "" >&2
-		echo "O diretório $bindir não está no PATH. Adicione ao seu shell:" >&2
+		echo "The directory $bindir is not in your PATH. Add it to your shell:" >&2
 		echo "  export PATH=\"\$HOME/.local/bin:\$PATH\"" >&2
 		echo "" >&2
 	fi

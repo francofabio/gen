@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/franco/gen/internal/platform"
+	"github.com/francofabio/gen/internal/platform"
 )
 
 // Config holds the user configuration (e.g. card BINs).

@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/franco/gen/internal/cli"
-	"github.com/franco/gen/internal/output"
+	"github.com/francofabio/gen/internal/cli"
+	"github.com/francofabio/gen/internal/output"
 )
 
 var Version = "dev"

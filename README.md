@@ -14,10 +14,10 @@ Command-line utility for quickly generating common Brazilian test data. Single b
 ### macOS / Linux
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/franco/gen/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/francofabio/gen/main/scripts/install.sh | sh
 ```
 
-The script detects OS and architecture, downloads the binary from [GitHub Releases](https://github.com/franco/gen/releases), and installs to `~/.local/bin` or `~/bin`. No `sudo` required.
+The script detects OS and architecture, downloads the binary from [GitHub Releases](https://github.com/francofabio/gen/releases), and installs to `~/.local/bin` or `~/bin`. No `sudo` required.
 
 If that directory is not in your `PATH`, add it to your shell:
 
@@ -28,7 +28,7 @@ export PATH="$HOME/.local/bin:$PATH"
 ### Windows (PowerShell)
 
 ```powershell
-irm https://raw.githubusercontent.com/franco/gen/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/francofabio/gen/main/scripts/install.ps1 | iex
 ```
 
 Installs to `%USERPROFILE%\bin`. Ensure that directory is in your `PATH`.
@@ -38,7 +38,7 @@ Installs to `%USERPROFILE%\bin`. Ensure that directory is in your `PATH`.
 Requires [Go 1.21+](https://go.dev/dl/).
 
 ```bash
-git clone https://github.com/franco/gen.git
+git clone https://github.com/francofabio/gen.git
 cd gen
 go build -o gen ./cmd/gen
 ```

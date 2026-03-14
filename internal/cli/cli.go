@@ -5,13 +5,13 @@ import (
 	"os"
 	"strings"
 
-	"github.com/franco/gen/internal/card"
-	"github.com/franco/gen/internal/cep"
-	"github.com/franco/gen/internal/clipboard"
-	"github.com/franco/gen/internal/config"
-	"github.com/franco/gen/internal/cnpj"
-	"github.com/franco/gen/internal/cpf"
-	"github.com/franco/gen/internal/output"
+	"github.com/francofabio/gen/internal/card"
+	"github.com/francofabio/gen/internal/cep"
+	"github.com/francofabio/gen/internal/clipboard"
+	"github.com/francofabio/gen/internal/config"
+	"github.com/francofabio/gen/internal/cnpj"
+	"github.com/francofabio/gen/internal/cpf"
+	"github.com/francofabio/gen/internal/output"
 )
 
 // Run parses args and runs the appropriate subcommand.
